@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Rete AFT e CA Bologna v2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F6F7; --surface:#FFFFFF; --surface2:#EBF1F2; --ink:#17272E; --muted:#55696F;
+  --accent:#0E6E77; --accent-soft:#E1EFF0; --accent-ink:#0B565E; --border:#DBE4E6;
+  --open:#1B7A44; --open-soft:#E2F2E8; --closed:#7A8A90;
+  --aft:#0E6E77; --aft-soft:#E1EFF0;
+  --amb:#2D5FA8; --amb-soft:#E5ECF7;
+  --dom:#6E4FA3; --dom-soft:#EEE8F6;
+  --warn:#8F6110; --warn-soft:#FAF0DA; --warn-border:#E5CF9E;
+  --shadow:0 1px 2px rgba(23,39,46,.06),0 4px 14px rgba(23,39,46,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F171B; --surface:#162229; --surface2:#1C2A32; --ink:#E7EFF1; --muted:#92A6AD;
+    --accent:#57B8C0; --accent-soft:#153439; --accent-ink:#8FD2D8; --border:#243640;
+    --open:#4FC57E; --open-soft:#15342A; --closed:#7C8F96;
+    --aft:#57B8C0; --aft-soft:#153439;
+    --amb:#84A9E3; --amb-soft:#1B2A42;
+    --dom:#B49ADF; --dom-soft:#2A2140;
+    --warn:#E0B15E; --warn-soft:#33270F; --warn-border:#4D3C1C;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F171B; --surface:#162229; --surface2:#1C2A32; --ink:#E7EFF1; --muted:#92A6AD;
+  --accent:#57B8C0; --accent-soft:#153439; --accent-ink:#8FD2D8; --border:#243640;
+  --open:#4FC57E; --open-soft:#15342A; --closed:#7C8F96;
+  --aft:#57B8C0; --aft-soft:#153439;
+  --amb:#84A9E3; --amb-soft:#1B2A42;
+  --dom:#B49ADF; --dom-soft:#2A2140;
+  --warn:#E0B15E; --warn-soft:#33270F; --warn-border:#4D3C1C;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+button,input,label.switch{touch-action:manipulation}
+@media (pointer:coarse){.chip{padding:10px 16px;font-size:14px}.btn-now{padding:9px 14px}input[type="date"],input[type="time"]{padding:9px 10px}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.5}
+.wrap{max-width:920px;margin:0 auto;padding:28px 18px 60px}
+header.top{margin-bottom:18px}
+.eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+h1{font-family:"Bitter",Georgia,serif;font-weight:700;font-size:clamp(24px,4vw,32px);margin:0 0 6px;text-wrap:balance}
+.sub{color:var(--muted);margin:0;max-width:60ch}
+.banner{display:flex;gap:10px;align-items:flex-start;background:var(--warn-soft);border:1px solid var(--warn-border);color:var(--warn);border-radius:10px;padding:10px 14px;font-size:13.5px;margin-top:14px}
+.banner strong{font-weight:600}
+.console{position:sticky;top:0;z-index:20;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:14px 16px;margin:18px 0 10px}
+.console .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.console .row+.row{margin-top:10px}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);width:100%;margin-bottom:-2px}
+.chip{border:1px solid var(--border);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 14px;font-size:13.5px;font-weight:500;cursor:pointer;font-family:inherit;transition:background .15s,border-color .15s}
+.chip:hover{border-color:var(--accent)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+:root[data-theme="dark"] .chip[aria-pressed="true"]{color:#0F171B}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .chip[aria-pressed="true"]{color:#0F171B}}
+input[type="date"],input[type="time"]{font-family:inherit;font-size:14px;color:var(--ink);background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:6px 9px;font-variant-numeric:tabular-nums}
+input:focus-visible,button:focus-visible,.switch input:focus-visible+.track{outline:2px solid var(--accent);outline-offset:2px}
+.btn-now{border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent-ink);border-radius:8px;padding:6px 12px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit}
+.live{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--open)}
+.live .dot{width:7px;height:7px;border-radius:50%;background:var(--open);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@media (prefers-reduced-motion: reduce){.live .dot{animation:none}}
+.switch{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:13.5px;font-weight:500;user-select:none}
+.switch input{position:absolute;opacity:0;width:0;height:0}
+.switch .track{width:34px;height:20px;border-radius:999px;background:var(--surface2);border:1px solid var(--border);position:relative;transition:background .15s}
+.switch .track::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--muted);transition:transform .15s,background .15s}
+.switch input:checked+.track{background:var(--accent)}
+.switch input:checked+.track::after{transform:translateX(14px);background:#fff}
+.status{width:100%;font-size:13.5px;color:var(--muted);border-top:1px solid var(--border);padding-top:9px;margin-top:2px}
+.status strong{color:var(--ink);font-weight:600}
+.ca-phone{display:flex;align-items:center;gap:10px;background:var(--accent-soft);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:10px 0 22px;font-size:14px;color:var(--accent-ink)}
+.ca-phone b{font-size:16px;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+h2.district{font-family:"Bitter",Georgia,serif;font-weight:700;font-size:21px;margin:26px 0 4px}
+.district-sub{color:var(--muted);font-size:13.5px;margin:0 0 14px}
+h3.group{font-size:12px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin:20px 0 8px;display:flex;align-items:center;gap:8px}
+h3.group::after{content:"";flex:1;height:1px;background:var(--border)}
+.cards{display:grid;gap:10px}
+.card{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--border);border-radius:12px;padding:12px 16px;box-shadow:var(--shadow)}
+.card.aft{border-left-color:var(--aft)}
+.card.amb{border-left-color:var(--amb)}
+.card.dom{border-left-color:var(--dom)}
+.card.mista{border-left-color:var(--amb)}
+.card .head{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-bottom:4px}
+.badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:6px;padding:2.5px 8px}
+.badge.aft{background:var(--aft-soft);color:var(--aft)}
+.badge.amb{background:var(--amb-soft);color:var(--amb)}
+.badge.dom{background:var(--dom-soft);color:var(--dom)}
+.badge.neutral{background:var(--surface2);color:var(--muted)}
+.badge.open{background:var(--open-soft);color:var(--open)}
+.badge.closed{background:var(--surface2);color:var(--closed)}
+.card .until{margin-left:auto;font-size:13px;font-weight:600;color:var(--open);font-variant-numeric:tabular-nums;white-space:nowrap}
+.card .nome{font-size:16.5px;font-weight:600;margin:2px 0 1px}
+.card .uff{font-weight:400;color:var(--muted);font-size:13.5px}
+.card .meta{color:var(--muted);font-size:13.5px;margin-top:2px}
+.card .meta b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.card .orari{font-size:13px;color:var(--muted);margin-top:6px;font-variant-numeric:tabular-nums}
+.dot-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.dot{font-size:11.5px;border-radius:6px;padding:3px 9px;border:1px solid var(--border);color:var(--muted);background:var(--surface2)}
+.dot.on{background:var(--open-soft);color:var(--open);border-color:transparent;font-weight:600}
+.dot-note{font-size:12px;color:var(--warn);margin-top:6px}
+.mini{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.04em;border-radius:5px;padding:1.5px 5px;background:var(--open-soft);color:var(--open);white-space:nowrap}
+.closed-list{margin-top:10px;border:1px dashed var(--border);border-radius:12px;padding:4px 14px;background:transparent}
+.closed-list summary{cursor:pointer;font-size:13.5px;color:var(--muted);padding:8px 0;font-weight:500}
+.closed-row{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline;padding:7px 0;border-top:1px solid var(--border);font-size:13.5px}
+.closed-row .n{font-weight:600}
+.closed-row .next{margin-left:auto;color:var(--muted);font-variant-numeric:tabular-nums}
+.others{margin-top:34px}
+.others h2{font-family:"Bitter",Georgia,serif;font-weight:700;font-size:19px;margin:0 0 2px}
+.others .hint{color:var(--muted);font-size:13.5px;margin:0 0 14px}
+.ogrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
+.obox{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px}
+.obox h4{margin:2px 0 6px;font-size:14.5px;font-weight:600}
+.orow{display:flex;gap:8px;align-items:baseline;padding:5.5px 0;border-top:1px solid var(--border);font-size:13.5px}
+.orow .n{font-weight:500;min-width:0}
+.orow .until2{margin-left:auto;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;font-size:12.5px}
+.orow .badge{font-size:9.5px;padding:2px 6px}
+.onone{color:var(--closed);font-size:13px;padding:6px 0;border-top:1px solid var(--border)}
+footer{margin-top:44px;border-top:1px solid var(--border);padding-top:18px;color:var(--muted);font-size:13px}
+footer h5{margin:0 0 6px;font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink)}
+footer p{margin:0 0 10px;max-width:75ch}
+footer a{color:var(--accent)}
+.empty{background:var(--surface);border:1px dashed var(--border);border-radius:12px;padding:16px;color:var(--muted);font-size:14px}
+@media (max-width:560px){.card .until{margin-left:0;width:100%}}
+</style>
+
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">Centrale telefonica · AUSL di Bologna · v2</p>
+    <h1>Rete AFT e Continuità Assistenziale</h1>
+    <p class="sub">Servizi territoriali attivi per distretto, giorno e fascia oraria. Seleziona il distretto di provenienza del paziente: il quadro si aggiorna in tempo reale.</p>
+    <noscript><div class="banner"><span>⚠︎</span><span><strong>Questa pagina è interattiva e qui non può funzionare.</strong> La stai vedendo in un'anteprima (da chat, e-mail o app File), che disattiva la parte interattiva. Aprila con un browser vero — Safari o Chrome — oppure usa il link online.</span></div></noscript>
+    <div class="banner" id="verifyBanner"><span>⚠︎</span><span><strong>Recapiti in attesa di verifica.</strong> Indirizzi e telefoni provengono dal sito AUSL di Bologna (agosto 2026) e non sono ancora stati validati dal responsabile. Gli orari di attivazione derivano dal documento di riepilogo interno.</span></div>
+  </header>
+
+  <section class="console" aria-label="Selezione distretto, giorno e ora">
+    <div class="row">
+      <span class="lbl">Distretto del paziente</span>
+      <div class="row" id="chips" role="group" aria-label="Distretti"></div>
+    </div>
+    <div class="row">
+      <span class="lbl">Giorno e ora</span>
+      <input type="date" id="inDate" aria-label="Data">
+      <input type="time" id="inTime" step="60" aria-label="Ora">
+      <button class="btn-now" id="btnNow" type="button">Adesso</button>
+      <label class="switch"><input type="checkbox" id="inFest"><span class="track"></span><span>Festivo</span></label>
+      <span class="live" id="liveTag" hidden><span class="dot"></span>ora attuale</span>
+    </div>
+    <div class="status" id="statusLine"></div>
+  </section>
+
+  <div class="ca-phone"><span>Accesso agli ambulatori di Continuità Assistenziale <strong>solo previo contatto telefonico</strong>:</span><b>051 3131</b></div>
+
+  <main id="results" aria-live="polite"></main>
+
+  <footer>
+    <h5>Legenda</h5>
+    <p><strong>AFT</strong>: ambulatorio delle Aggregazioni Funzionali Territoriali (assistenza medica diurna). <strong>Hub</strong>: aperto anche la domenica · <strong>Spoke</strong>: chiuso la domenica. <strong>già CAU</strong>: sede dell'ex Centro di Assistenza e Urgenza. <strong>CA</strong>: Continuità Assistenziale (ex guardia medica) con funzione <strong>Ambulatoriale</strong>, <strong>Domiciliare</strong> o <strong>Mista</strong> (ambulatoriale + domiciliare).</p>
+    <h5>Servizi nelle CdC</h5>
+    <p><strong>Radiologia</strong> (solo sedi ex CAU, con l'orario proprio di ciascuna sede indicato nella scheda): Navile Lun–Sab 8–19 · Budrio e Vergato Lun–Ven 8–19:30, Sab 8–13:30 · Casalecchio Lun–Ven 8–19:30, Sab 8–12:30 · San Lazzaro Lun–Ven 8–18:30, Sab 8–12:30. Domenica e festivi il servizio è chiuso, ma è possibile la presa in carico del paziente e la prenotazione della prestazione per il giorno successivo. <strong>POCT su sangue venoso</strong> (emocromo, biochimica con funzionalità epatica e renale, PCR, elettroliti), test glicemico, tamponi respiratori diagnostici ed <strong>ECG con telerefertazione</strong> (solo sedi ex CAU): disponibili per tutto l'orario di apertura della sede, 7 giorni su 7. <strong>Consulenza e prestazioni infermieristiche</strong> (tutte le CdC con ambulatorio AFT): 8–13 nelle sedi Spoke, 8–19 nelle sedi Hub, negli stessi giorni di apertura della CdC. Nei riquadri degli altri distretti, <strong>R</strong> = radiologia attiva ora, <strong>Inf</strong> = infermiere attivo ora.</p>
+    <h5>Festivi</h5>
+    <p>Le festività nazionali italiane (compreso il Lunedì dell'Angelo) sono riconosciute automaticamente dalla data selezionata. Per i patroni locali attiva manualmente l'interruttore «Festivo». Nei giorni festivi gli ambulatori AFT Lun–Sab e Lun–Ven sono considerati chiusi; le sedi Lun–Dom e H24 restano attive.</p>
+    <h5>Fonti</h5>
+    <p>Orari e sedi: documento di riepilogo «Sedi Ambulatori AFT e Sedi di Continuità Assistenziale» (agosto 2026). Recapiti: <a href="https://www.ausl.bologna.it" rel="noopener">ausl.bologna.it</a> — <a href="https://www.ausl.bologna.it/cit/cagm/il-servizio-di-continuita-assistenziale-la-guardia" rel="noopener">pagina del servizio di Continuità Assistenziale</a>. Strumento di consultazione interna: verificare sempre i casi dubbi sui canali ufficiali.</p>
+  </footer>
+</div>
+
+<script>
+"use strict";
+/* ---------- Anagrafica sedi ---------- */
+const SEDI = {
+  mengoli:{nome:"CdC Via Mengoli",ind:"Via Pietro Mengoli 32, Bologna",tel:"051 396111"},
+  pilastro:{nome:"CdC Pilastro",ind:"Via Luigi Pirandello 8, Bologna",tel:"051 2869011"},
+  faenza:{nome:"CdC Via Faenza",uff:"CdC Savena Santo Stefano",ind:"Via Faenza 4, Bologna",tel:"051 6200011"},
+  porto:{nome:"CdC Porto-Saragozza",ind:"Via Sant'Isaia 94/A, Bologna",tel:"051 6597111"},
+  navile:{nome:"CdC Navile",ind:"Via Card. Domenico Svampa 8, Bologna",tel:"051 4191111"},
+  colombi:{nome:"CdC Via Colombi",uff:"CdC Reno",ind:"Via Arturo Colombi 3, Bologna",tel:"051 6173511"},
+  chersich:{nome:"CdC Chersich (Beroaldo)",uff:"CdC San Vitale San Donato",ind:"Via Filippo Beroaldo 4/2, Bologna",tel:"051 6375711"},
+  sanlazzaro:{nome:"CdC San Lazzaro",ind:"Via Repubblica 11, San Lazzaro di Savena",tel:"051 6224111"},
+  pianoro:{nome:"Pianoro",ind:"Viale Risorgimento 8, Pianoro"},
+  loiano:{nome:"Loiano",uff:"CdC Patrizia Carpani · Osp. Simiani",ind:"Via Roma 8, Loiano",tel:"051 6543711"},
+  persiceto:{nome:"CdC S. Giovanni in Persiceto",uff:"c/o Ospedale SS. Salvatore",ind:"Via Enzo Palma 1, S. Giovanni in Persiceto",tel:"051 6813111"},
+  calderara:{nome:"CdC Calderara",uff:"CdC Maria Montessori",ind:"Via I Maggio 15, Calderara di Reno",tel:"051 6813111"},
+  crevalcore:{nome:"CdC Crevalcore",uff:"CdC Terre d'Acqua Barberini",ind:"Viale Libertà 171, Crevalcore",tel:"051 6803911"},
+  castiglione:{nome:"CdC Castiglione",ind:"Via Sensi 12, Castiglione dei Pepoli",tel:"0534 93711"},
+  vergato:{nome:"CdC Vergato",uff:"c/o Ospedale di Vergato",ind:"Via dell'Ospedale 1, Vergato",tel:"051 6749111"},
+  porretta:{nome:"CdC Porretta",uff:"c/o Ospedale di Porretta",ind:"Via Oreste Zagnoni 5, Alto Reno Terme",tel:"0534 20711"},
+  lizzano:{nome:"Lizzano in Belvedere",ind:"Piazza Vittorio Betti 2, Lizzano in B. (da confermare)",tel:"0534 51131"},
+  vado:{nome:"Monzuno / Vado",uff:"CdC di Vado",ind:"Via Val di Setta 4/A, Monzuno loc. Vado",tel:"051 6779118"},
+  casalecchio:{nome:"CdC Casalecchio",ind:"P.le Rita Levi Montalcini 5, Casalecchio di Reno",tel:"051 4583111"},
+  bazzano:{nome:"CdC Bazzano",ind:"Viale dei Martiri 10/a-b, Valsamoggia loc. Bazzano",tel:"051 838811"},
+  zola:{nome:"CdC Zola Predosa",uff:"CdC Lavino Samoggia",ind:"Piazza G. di Vittorio 1, Zola Predosa",tel:"051 6188946"},
+  sasso:{nome:"CdC Sasso Marconi",ind:"Via Bertacchi 11, Sasso Marconi",tel:"051 6756611"},
+  msp:{nome:"Monte San Pietro",uff:"Poliambulatorio di Calderino",ind:"Via Lavino 17/A, Monte San Pietro",tel:"051 6761711"},
+  savigno:{nome:"Savigno",ind:"Via Marconi 17, Valsamoggia loc. Savigno"},
+  budrio:{nome:"CdC Budrio",uff:"c/o Ospedale di Budrio",ind:"Via Benni 44, Budrio",tel:"051 809111"},
+  castenaso:{nome:"CdC Castenaso",ind:"Via Guglielmo Marconi 16, Castenaso",tel:"051 6059511"},
+  baricella:{nome:"CdC Baricella",ind:"Via Europa 15, Baricella",tel:"051 6622311"},
+  spc:{nome:"CdC San Pietro in Casale",uff:"CdC San Pietro in Casale e Galliera",ind:"Via Asia 61, San Pietro in Casale",tel:"051 6662711"},
+  bentivoglio:{nome:"Bentivoglio",ind:"Via Guglielmo Marconi 35, Bentivoglio"},
+  molinella:{nome:"Molinella",ind:"Via Prov. Circonvallazione 47, Molinella"}
+};
+
+/* ---------- Distretti ---------- */
+const DISTRETTI = ["Bologna Est","Bologna Ovest","Savena Idice","Pianura Ovest","Appennino","Reno Lavino Samoggia","Pianura Est"];
+
+/* ---------- Servizi ----------
+AFT: days = giorni apertura (0=Dom..6=Sab), h24, hub, cau. Nei festivi: attivo solo se apre anche la domenica (Lun-Dom) o H24.
+CA:  fn = amb|dom|mista; night = 20-8 tutte le notti; fest = 8-20 sab, dom e festivi. */
+const LS=[1,2,3,4,5,6], LD=[0,1,2,3,4,5,6], LV=[1,2,3,4,5];
+const SERVIZI = [
+  /* --- Ambulatori AFT --- */
+  {sede:"mengoli",    d:"Bologna Est",         k:"aft",hub:false,cau:false,days:LS},
+  {sede:"pilastro",   d:"Bologna Est",         k:"aft",hub:false,cau:false,days:LS},
+  {sede:"faenza",     d:"Bologna Est",         k:"aft",hub:true, cau:false,days:LD},
+  {sede:"porto",      d:"Bologna Ovest",       k:"aft",hub:true, cau:false,days:LD},
+  {sede:"navile",     d:"Bologna Ovest",       k:"aft",hub:true, cau:true, days:LD},
+  {sede:"colombi",    d:"Bologna Ovest",       k:"aft",hub:false,cau:false,days:LS},
+  {sede:"sanlazzaro", d:"Savena Idice",        k:"aft",hub:true, cau:true, days:LD},
+  {sede:"persiceto",  d:"Pianura Ovest",       k:"aft",hub:false,cau:false,days:LS},
+  {sede:"calderara",  d:"Pianura Ovest",       k:"aft",hub:false,cau:false,days:LS},
+  {sede:"crevalcore", d:"Pianura Ovest",       k:"aft",hub:true, cau:false,days:LD},
+  {sede:"castiglione",d:"Appennino",           k:"aft",hub:false,cau:false,days:LV},
+  {sede:"vergato",    d:"Appennino",           k:"aft",hub:true, cau:true, days:LD,h24:true},
+  {sede:"casalecchio",d:"Reno Lavino Samoggia",k:"aft",hub:true, cau:true, days:LD},
+  {sede:"bazzano",    d:"Reno Lavino Samoggia",k:"aft",hub:true, cau:false,days:LD},
+  {sede:"zola",       d:"Reno Lavino Samoggia",k:"aft",hub:false,cau:false,days:LS},
+  {sede:"sasso",      d:"Reno Lavino Samoggia",k:"aft",hub:false,cau:false,days:LS},
+  {sede:"budrio",     d:"Pianura Est",         k:"aft",hub:true, cau:true, days:LD,h24:true},
+  {sede:"castenaso",  d:"Pianura Est",         k:"aft",hub:false,cau:false,days:LS},
+  {sede:"baricella",  d:"Pianura Est",         k:"aft",hub:false,cau:false,days:LS},
+  /* --- Continuità Assistenziale --- */
+  {sede:"chersich",   d:"Bologna Est",         k:"ca",fn:"dom",  night:true, fest:true},
+  {sede:"faenza",     d:"Bologna Est",         k:"ca",fn:"amb",  night:true, fest:true},
+  {sede:"navile",     d:"Bologna Ovest",       k:"ca",fn:"dom",  night:true, fest:true},
+  {sede:"navile",     d:"Bologna Ovest",       k:"ca",fn:"amb",  night:true, fest:false},
+  {sede:"porto",      d:"Bologna Ovest",       k:"ca",fn:"amb",  night:false,fest:true},
+  {sede:"sanlazzaro", d:"Savena Idice",        k:"ca",fn:"mista",night:true, fest:false},
+  {sede:"sanlazzaro", d:"Savena Idice",        k:"ca",fn:"dom",  night:false,fest:true},
+  {sede:"pianoro",    d:"Savena Idice",        k:"ca",fn:"mista",night:false,fest:true},
+  {sede:"loiano",     d:"Savena Idice",        k:"ca",fn:"mista",night:true, fest:true},
+  {sede:"persiceto",  d:"Pianura Ovest",       k:"ca",fn:"dom",  night:false,fest:true},
+  {sede:"persiceto",  d:"Pianura Ovest",       k:"ca",fn:"mista",night:true, fest:false},
+  {sede:"porretta",   d:"Appennino",           k:"ca",fn:"mista",night:true, fest:true},
+  {sede:"castiglione",d:"Appennino",           k:"ca",fn:"mista",night:true, fest:true},
+  {sede:"vergato",    d:"Appennino",           k:"ca",fn:"dom",  night:true, fest:true},
+  {sede:"lizzano",    d:"Appennino",           k:"ca",fn:"dom",  night:true, fest:true},
+  {sede:"vado",       d:"Appennino",           k:"ca",fn:"mista",night:true, fest:true},
+  {sede:"casalecchio",d:"Reno Lavino Samoggia",k:"ca",fn:"mista",night:true, fest:false},
+  {sede:"casalecchio",d:"Reno Lavino Samoggia",k:"ca",fn:"dom",  night:false,fest:true},
+  {sede:"msp",        d:"Reno Lavino Samoggia",k:"ca",fn:"mista",night:true, fest:true},
+  {sede:"savigno",    d:"Reno Lavino Samoggia",k:"ca",fn:"mista",night:true, fest:true},
+  {sede:"spc",        d:"Pianura Est",         k:"ca",fn:"mista",night:true, fest:true},
+  {sede:"bentivoglio",d:"Pianura Est",         k:"ca",fn:"mista",night:true, fest:true},
+  {sede:"castenaso",  d:"Pianura Est",         k:"ca",fn:"mista",night:true, fest:false},
+  {sede:"castenaso",  d:"Pianura Est",         k:"ca",fn:"dom",  night:false,fest:true},
+  {sede:"molinella",  d:"Pianura Est",         k:"ca",fn:"mista",night:true, fest:true}
+];
+
+/* ---------- Festività nazionali ---------- */
+function easter(y){const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1;return new Date(y,mo-1,da);}
+function isNatHoliday(d){
+  const m=d.getMonth()+1,g=d.getDate();
+  if([[1,1],[1,6],[4,25],[5,1],[6,2],[8,15],[11,1],[12,8],[12,25],[12,26]].some(x=>x[0]===m&&x[1]===g))return true;
+  const e=easter(d.getFullYear()),pq=new Date(e.getFullYear(),e.getMonth(),e.getDate()+1);
+  return d.getMonth()===pq.getMonth()&&d.getDate()===pq.getDate();
+}
+const GIORNI=["domenica","lunedì","martedì","mercoledì","giovedì","venerdì","sabato"];
+const GIORNI_B=["dom","lun","mar","mer","gio","ven","sab"];
+
+/* ---------- Stato ---------- */
+let state={distretto:DISTRETTI[0],date:"",time:"",fest:false,festTouched:false,live:true};
+const $=id=>document.getElementById(id);
+function pad(n){return String(n).padStart(2,"0")}
+function ymd(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}
+
+/* ---------- Motore disponibilità ---------- */
+function isFestivo(d){ // festivo "rosso" (esclusa la semplice domenica)
+  if(ymd(d)===state.date) return state.fest;
+  return isNatHoliday(d);
+}
+function isActive(s,d){
+  const wd=d.getDay(), t=d.getHours()*60+d.getMinutes(), fest=isFestivo(d);
+  if(s.k==="aft"){
+    if(s.h24) return true;
+    if(!s.days.includes(wd)) return false;
+    if(fest && !s.days.includes(0)) return false;
+    return t>=480 && t<1200;
+  }
+  const day=(wd===0||wd===6||fest) && t>=480 && t<1200;
+  const nig=(t<480||t>=1200);
+  return (s.night&&nig)||(s.fest&&day);
+}
+function selDate(){const [y,m,g]=state.date.split("-").map(Number);const [h,mi]=state.time.split(":").map(Number);return new Date(y,m-1,g,h,mi);}
+function nextHour(d){const n=new Date(d);n.setMinutes(0,0,0);n.setHours(n.getHours()+1);return n;}
+function activeUntil(s){ // Date di fine, oppure null = sempre attivo (H24)
+  let d=nextHour(selDate());
+  for(let i=0;i<24*8;i++){ if(!isActive(s,d)) return d; d=new Date(d.getTime()+3600000); }
+  return null;
+}
+/* Servizi aggiuntivi nelle CdC (nota servizi agosto 2026) */
+/* Orari radiologia per sede (tabella agosto 2026): [apertura,chiusura] in minuti; domenica e festivi chiuso */
+const RADIOLOGIA={
+  navile:     {fer:[480,1140],sab:[480,1140]}, // Lun-Sab 8-19
+  budrio:     {fer:[480,1170],sab:[480,810]},  // Lun-Ven 8-19:30 · Sab 8-13:30
+  casalecchio:{fer:[480,1170],sab:[480,750]},  // Lun-Ven 8-19:30 · Sab 8-12:30
+  sanlazzaro: {fer:[480,1110],sab:[480,750]},  // Lun-Ven 8-18:30 · Sab 8-12:30
+  vergato:    {fer:[480,1170],sab:[480,810]}   // Lun-Ven 8-19:30 · Sab 8-13:30
+};
+function radiologiaActive(s,d){
+  if(s.k!=="aft")return false;
+  const r=RADIOLOGIA[s.sede]; if(!r)return false;
+  if(isFestivo(d))return false;
+  const wd=d.getDay(),t=d.getHours()*60+d.getMinutes();
+  const w=(wd>=1&&wd<=5)?r.fer:(wd===6?r.sab:null);
+  return !!w&&t>=w[0]&&t<w[1];
+}
+function radLabel(id){
+  const r=RADIOLOGIA[id],f=t=>{const h=Math.floor(t/60),m=t%60;return h+(m?":"+pad(m):"");};
+  if(r.fer[0]===r.sab[0]&&r.fer[1]===r.sab[1])return`Lun–Sab ${f(r.fer[0])}–${f(r.fer[1])}`;
+  return`Lun–Ven ${f(r.fer[0])}–${f(r.fer[1])} · Sab ${f(r.sab[0])}–${f(r.sab[1])}`;
+}
+function infermiereActive(s,d){ // tutte le CdC AFT: 8-13 Spoke, 8-19 Hub, stessi giorni della CdC
+  if(s.k!=="aft")return false;
+  const wd=d.getDay(),t=d.getHours()*60+d.getMinutes();
+  if(!s.days.includes(wd))return false;
+  if(isFestivo(d)&&!s.days.includes(0))return false;
+  return t>=480&&t<(s.hub?1140:780);
+}
+function nextOpening(s){ // prossima Date di apertura, oppure null
+  let d=nextHour(selDate());
+  for(let i=0;i<24*8;i++){ if(isActive(s,d)) return d; d=new Date(d.getTime()+3600000); }
+  return null;
+}
+function fmtRel(d,now){
+  if(!d) return "H24";
+  const h=d.getHours()+":"+pad(d.getMinutes());
+  const dd=ymd(d),dn=ymd(now);
+  if(dd===dn) return "alle "+h;
+  const dom=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1);
+  if(dd===ymd(dom)) return "domani alle "+h;
+  return GIORNI_B[d.getDay()]+" alle "+h;
+}
+
+/* ---------- Testi ---------- */
+function orariText(s){
+  if(s.k==="aft"){
+    if(s.h24) return "Aperto 24 ore, Lun–Dom";
+    const dd=s.days.includes(0)?"Lun–Dom":(s.days.includes(6)?"Lun–Sab":"Lun–Ven");
+    return dd+" · 8–20";
+  }
+  const p=[];
+  if(s.night)p.push("tutte le notti 20–8");
+  if(s.fest)p.push("sab, dom e festivi 8–20");
+  return p.join(" · ").replace(/^./,c=>c.toUpperCase());
+}
+function fnLabel(fn){return fn==="amb"?"Ambulatoriale":fn==="dom"?"Domiciliare":"Mista (Amb+Dom)"}
+function fmtUntil(s,now){const u=activeUntil(s);if(!u)return"H24";const r=fmtRel(u,now);return r.startsWith("alle")?"fino "+r:"fino a "+r;}
+function fnClass(fn){return fn==="amb"?"amb":fn==="dom"?"dom":"mista"}
+function esc(x){return String(x).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+/* ---------- Render ---------- */
+function badges(s){
+  let b="";
+  if(s.k==="aft"){ b+='<span class="badge aft">Ambulatorio AFT</span>';
+    b+=`<span class="badge neutral">${s.hub?"Hub":"Spoke"}</span>`;
+    if(s.cau)b+='<span class="badge neutral">già CAU</span>';
+  } else {
+    b+=`<span class="badge ${s.fn==="dom"?"dom":"amb"}">CA · ${fnLabel(s.fn)}</span>`;
+  }
+  return b;
+}
+function card(s,active){
+  const info=SEDI[s.sede], now=selDate();
+  const stato=active
+    ? `<span class="until">Attivo · ${fmtUntil(s,now)}</span>`
+    : "";
+  const tel=info.tel?` · tel <b>${esc(info.tel)}</b>`:"";
+  const uff=info.uff?` <span class="uff">· ${esc(info.uff)}</span>`:"";
+  const cls=s.k==="aft"?"aft":fnClass(s.fn);
+  let dots="";
+  if(s.k==="aft"){
+    const inf=infermiereActive(s,now);
+    dots='<div class="dot-row">';
+    dots+=`<span class="dot ${inf?"on":""}">Infermiere · ${s.hub?"8–19":"8–13"}${inf?" · ora attivo":""}</span>`;
+    if(s.cau){
+      const rad=radiologiaActive(s,now), open=isActive(s,now);
+      dots+=`<span class="dot ${rad?"on":""}">Radiologia · ${radLabel(s.sede)}${rad?" · ora attiva":""}</span>`;
+      dots+=`<span class="dot ${open?"on":""}">POCT venoso · ECG · tamponi${open?" · attivi":""}</span>`;
+    }
+    dots+='</div>';
+    if(s.cau && !radiologiaActive(s,now) && (isFestivo(now)||now.getDay()===0)){
+      dots+='<div class="dot-note">Radiologia: oggi possibile presa in carico e prenotazione per il giorno successivo.</div>';
+    }
+  }
+  return `<div class="card ${cls}">
+    <div class="head">${badges(s)}${stato}</div>
+    <div class="nome">${esc(info.nome)}${uff}</div>
+    <div class="meta">${esc(info.ind)}${tel}</div>
+    <div class="orari">${orariText(s)}</div>
+    ${dots}
+  </div>`;
+}
+function closedRow(s){
+  const info=SEDI[s.sede], now=selDate(), n=nextOpening(s);
+  const label=s.k==="aft"?`Ambulatorio AFT ${s.hub?"Hub":"Spoke"}`:`CA ${fnLabel(s.fn)}`;
+  return `<div class="closed-row"><span class="n">${esc(info.nome)}</span><span class="badge closed">${label}</span><span class="next">${n?"riapre "+fmtRel(n,now):"—"}</span></div>`;
+}
+function render(){
+  const now=selDate(), wd=now.getDay(), auto=isNatHoliday(now);
+  const tipo=state.fest?"festivo":(wd===0?"domenica":wd===6?"sabato":"feriale");
+  $("statusLine").innerHTML=`<strong>${GIORNI[wd].replace(/^./,c=>c.toUpperCase())} ${now.getDate()} ${["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"][now.getMonth()]}, ore ${now.getHours()}:${pad(now.getMinutes())}</strong> — giorno ${tipo}${auto&&state.fest?" (festività nazionale)":""}${!auto&&state.fest?" (impostato manualmente)":""}`;
+  $("liveTag").hidden=!state.live;
+
+  const mine=SERVIZI.filter(s=>s.d===state.distretto);
+  const act=mine.filter(s=>isActive(s,now));
+  const off=mine.filter(s=>!isActive(s,now));
+  const aftA=act.filter(s=>s.k==="aft"), caA=act.filter(s=>s.k==="ca");
+
+  let h=`<h2 class="district">${esc(state.distretto)}</h2>
+  <p class="district-sub">${act.length? act.length+" serviz"+(act.length===1?"io attivo":"i attivi")+" in questa fascia":"Nessun servizio attivo in questa fascia"}</p>`;
+
+  if(!act.length){
+    h+=`<div class="empty">Nessuna sede del distretto è attiva in questo momento. Controlla sotto le prossime riaperture o i servizi attivi negli altri distretti.</div>`;
+  }
+  if(aftA.length){ h+=`<h3 class="group">Ambulatori AFT</h3><div class="cards">${aftA.map(s=>card(s,true)).join("")}</div>`; }
+  if(caA.length){ h+=`<h3 class="group">Continuità Assistenziale</h3><div class="cards">${caA.map(s=>card(s,true)).join("")}</div>`; }
+  if(off.length){
+    h+=`<details class="closed-list"><summary>Non attivi in questa fascia (${off.length}) — prossime riaperture</summary>${off.map(closedRow).join("")}</details>`;
+  }
+
+  h+=`<div class="others"><h2>Negli altri distretti</h2><p class="hint">Servizi attivi adesso, se serve indirizzare il paziente fuori distretto.</p><div class="ogrid">`;
+  for(const d of DISTRETTI){
+    if(d===state.distretto)continue;
+    const a=SERVIZI.filter(s=>s.d===d&&isActive(s,now));
+    h+=`<div class="obox"><h4>${esc(d)}</h4>`;
+    if(!a.length){h+=`<div class="onone">Nessun servizio attivo</div>`;}
+    else for(const s of a){
+      const info=SEDI[s.sede];
+      const b=s.k==="aft"?'<span class="badge aft">AFT</span>':`<span class="badge ${s.fn==="dom"?"dom":"amb"}">CA ${s.fn==="amb"?"Amb":s.fn==="dom"?"Dom":"Mista"}</span>`;
+      let m="";
+      if(radiologiaActive(s,now))m+='<span class="mini" title="Radiologia attiva">R</span>';
+      if(infermiereActive(s,now))m+='<span class="mini" title="Infermiere attivo">Inf</span>';
+      h+=`<div class="orow"><span class="n">${esc(info.nome)}</span>${b}${m}<span class="until2">${fmtUntil(s,now)}</span></div>`;
+    }
+    h+=`</div>`;
+  }
+  h+=`</div></div>`;
+  $("results").innerHTML=h;
+}
+
+/* ---------- Controlli ---------- */
+function setNow(){
+  const n=new Date();
+  state.date=ymd(n); state.time=pad(n.getHours())+":"+pad(n.getMinutes());
+  $("inDate").value=state.date; $("inTime").value=state.time;
+  state.live=true; syncFest(); render();
+}
+function syncFest(){
+  if(!state.festTouched){ state.fest=isNatHoliday(selDate()); $("inFest").checked=state.fest; }
+}
+function init(){
+  const chips=$("chips");
+  DISTRETTI.forEach(d=>{
+    const b=document.createElement("button");
+    b.type="button";b.className="chip";b.textContent=d;
+    b.setAttribute("aria-pressed",d===state.distretto?"true":"false");
+    b.addEventListener("click",()=>{state.distretto=d;chips.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c.textContent===d?"true":"false"));render();});
+    chips.appendChild(b);
+  });
+  $("inDate").addEventListener("change",()=>{if(!$("inDate").value)return;state.date=$("inDate").value;state.live=false;state.festTouched=false;syncFest();render();});
+  $("inTime").addEventListener("change",()=>{if(!$("inTime").value)return;state.time=$("inTime").value;state.live=false;render();});
+  $("inFest").addEventListener("change",()=>{state.fest=$("inFest").checked;state.festTouched=true;render();});
+  $("btnNow").addEventListener("click",()=>{state.festTouched=false;setNow();});
+  setNow();
+  setInterval(()=>{if(state.live)setNow();},30000);
+}
+init();
+</script>
+
+</body>
+</html>
