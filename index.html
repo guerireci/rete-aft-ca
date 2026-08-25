@@ -2,8 +2,16 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
+<!--
+  Rete AFT e Continuità Assistenziale — AUSL di Bologna (v2)
+  © 2026 Dott. Guerino Recinella — Tutti i diritti riservati
+  Strumento di consultazione interna per la centrale telefonica
+  Ultimo aggiornamento dati: 24 agosto 2026
+-->
 <title>Rete AFT e CA Bologna v2</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Dott. Guerino Recinella">
+<meta name="copyright" content="© 2026 Dott. Guerino Recinella — Tutti i diritti riservati">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -49,6 +57,9 @@ header.top{margin-bottom:18px}
 .eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
 h1{font-family:"Bitter",Georgia,serif;font-weight:700;font-size:clamp(24px,4vw,32px);margin:0 0 6px;text-wrap:balance}
 .sub{color:var(--muted);margin:0;max-width:60ch}
+.updated{display:inline-flex;align-items:center;gap:7px;margin:10px 0 0;font-size:13px;font-weight:600;color:var(--accent-ink);background:var(--accent-soft);border:1px solid var(--border);border-radius:999px;padding:4px 12px}
+.updated::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.copyright{border-top:1px solid var(--border);margin-top:16px;padding-top:12px;font-size:12.5px}
 .banner{display:flex;gap:10px;align-items:flex-start;background:var(--warn-soft);border:1px solid var(--warn-border);color:var(--warn);border-radius:10px;padding:10px 14px;font-size:13.5px;margin-top:14px}
 .banner strong{font-weight:600}
 .console{position:sticky;top:0;z-index:20;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:14px 16px;margin:18px 0 10px}
@@ -138,6 +149,7 @@ footer a{color:var(--accent)}
     <p class="eyebrow">Centrale telefonica · AUSL di Bologna · v2</p>
     <h1>Rete AFT e Continuità Assistenziale</h1>
     <p class="sub">Servizi territoriali attivi per distretto, giorno e fascia oraria. Seleziona il distretto di provenienza del paziente: il quadro si aggiorna in tempo reale.</p>
+    <p class="updated">Dati aggiornati al 24 agosto 2026</p>
     <noscript><div class="banner"><span>⚠︎</span><span><strong>Questa pagina è interattiva e qui non può funzionare.</strong> La stai vedendo in un'anteprima (da chat, e-mail o app File), che disattiva la parte interattiva. Aprila con un browser vero — Safari o Chrome — oppure usa il link online.</span></div></noscript>
     <div class="banner" id="verifyBanner"><span>⚠︎</span><span><strong>Recapiti in attesa di verifica.</strong> Indirizzi e telefoni provengono dal sito AUSL di Bologna (agosto 2026) e non sono ancora stati validati dal responsabile. Gli orari di attivazione derivano dal documento di riepilogo interno.</span></div>
   </header>
@@ -171,6 +183,7 @@ footer a{color:var(--accent)}
     <p>Le festività nazionali italiane (compreso il Lunedì dell'Angelo) sono riconosciute automaticamente dalla data selezionata. Per i patroni locali attiva manualmente l'interruttore «Festivo». Nei giorni festivi gli ambulatori AFT Lun–Sab e Lun–Ven sono considerati chiusi; le sedi Lun–Dom e H24 restano attive.</p>
     <h5>Fonti</h5>
     <p>Orari e sedi: documento di riepilogo «Sedi Ambulatori AFT e Sedi di Continuità Assistenziale» (agosto 2026). Recapiti: <a href="https://www.ausl.bologna.it" rel="noopener">ausl.bologna.it</a> — <a href="https://www.ausl.bologna.it/cit/cagm/il-servizio-di-continuita-assistenziale-la-guardia" rel="noopener">pagina del servizio di Continuità Assistenziale</a>. Strumento di consultazione interna: verificare sempre i casi dubbi sui canali ufficiali.</p>
+    <p class="copyright">© 2026 Dott. Guerino Recinella · Tutti i diritti riservati · Dati aggiornati al 24 agosto 2026 · Strumento di consultazione interna — non sostituisce i canali ufficiali AUSL.</p>
   </footer>
 </div>
 
