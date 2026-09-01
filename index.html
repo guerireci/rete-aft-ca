@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <!--
-  Rete AFT e Continuità Assistenziale — AUSL di Bologna (v4)
+  Rete AFT e Continuità Assistenziale — AUSL di Bologna (v5)
   © 2026 Dott. Guerino Recinella — Tutti i diritti riservati
   Strumento di consultazione interna per la centrale operativa
-  Ultimo aggiornamento dati: 24 agosto 2026
+  Ultimo aggiornamento dati: 1 settembre 2026
 -->
-<title>Rete AFT e CA Bologna v4</title>
+<title>Rete AFT e CA Bologna v5</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="author" content="Dott. Guerino Recinella">
 <meta name="copyright" content="© 2026 Dott. Guerino Recinella — Tutti i diritti riservati">
@@ -130,6 +130,8 @@ h3.group::after{content:"";flex:1;height:1px;background:var(--border)}
 .dot.on{background:var(--open-soft);color:var(--open);border-color:transparent;font-weight:600}
 .dot-note{font-size:12px;color:var(--warn);margin-top:6px}
 .mini{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.04em;border-radius:5px;padding:1.5px 5px;background:var(--open-soft);color:var(--open);white-space:nowrap}
+.distchip{display:inline-block;font-size:12px;font-weight:700;color:var(--accent-ink);background:var(--accent-soft);border-radius:6px;padding:1px 7px;white-space:nowrap;font-variant-numeric:tabular-nums;vertical-align:middle}
+.orow .distchip,.closed-row .distchip{font-size:11px;padding:1px 6px}
 .sid{margin-top:14px;border:1px solid var(--border);border-left:4px solid var(--aft);border-radius:12px;padding:4px 14px;background:var(--surface)}
 .sid summary{cursor:pointer;font-size:13.5px;color:var(--ink);padding:9px 0;font-weight:600}
 .sid summary .cnt{color:var(--muted);font-weight:500}
@@ -169,10 +171,10 @@ footer a{color:var(--accent)}
 <body>
 <div class="wrap">
   <header class="top">
-    <p class="eyebrow">Centrale operativa · AUSL di Bologna · v4</p>
+    <p class="eyebrow">Centrale operativa · AUSL di Bologna · v5</p>
     <h1>Rete AFT e Continuità Assistenziale</h1>
     <p class="sub">Servizi territoriali attivi per distretto, giorno e fascia oraria. Seleziona il distretto di provenienza del paziente: il quadro si aggiorna in tempo reale.</p>
-    <p class="updated">Dati aggiornati al 24 agosto 2026</p>
+    <p class="updated">Dati aggiornati al 1 settembre 2026</p>
     <noscript><div class="banner"><span>⚠︎</span><span><strong>Questa pagina è interattiva e qui non può funzionare.</strong> La stai vedendo in un'anteprima (da chat, e-mail o app File), che disattiva la parte interattiva. Aprila con un browser vero — Safari o Chrome — oppure usa il link online.</span></div></noscript>
     <div class="banner" id="verifyBanner"><span>⚠︎</span><span><strong>Recapiti in attesa di verifica.</strong> Indirizzi e telefoni provengono dal sito AUSL di Bologna (agosto 2026) e non sono ancora stati validati dal responsabile. Gli orari di attivazione derivano dal documento di riepilogo interno.</span></div>
   </header>
@@ -212,13 +214,15 @@ footer a{color:var(--accent)}
     <p>Il campo indirizzo riconosce comuni, frazioni e località del territorio AUSL Bologna e le vie del comune di Bologna (pertinenza Roncati = Bologna Ovest, Beroaldo = Bologna Est), e imposta automaticamente il distretto. Alcune località esistono in più comuni: in quel caso compaiono più risultati, da distinguere tramite il comune indicato a destra. I territori di altre aziende sanitarie (es. Medicina, Osteria Grande, Cento) vengono segnalati come fuori territorio. La ricerca avviene interamente nel browser: l'indirizzo digitato non viene inviato né salvato da nessuna parte. Fonte: elenco «Paesi e Vie» v3.52 (Dr. Di Stasi).</p>
     <h5>Servizi nelle CdC</h5>
     <p><strong>Radiologia</strong> (solo sedi ex CAU, con l'orario proprio di ciascuna sede indicato nella scheda): Navile Lun–Sab 8–19 · Budrio e Vergato Lun–Ven 8–19:30, Sab 8–13:30 · Casalecchio Lun–Ven 8–19:30, Sab 8–12:30 · San Lazzaro Lun–Ven 8–18:30, Sab 8–12:30. Domenica e festivi il servizio è chiuso, ma è possibile la presa in carico del paziente e la prenotazione della prestazione per il giorno successivo. <strong>POCT su sangue venoso</strong> (emocromo, biochimica con funzionalità epatica e renale, PCR, elettroliti), test glicemico, tamponi respiratori diagnostici ed <strong>ECG con telerefertazione</strong> (solo sedi ex CAU): disponibili per tutto l'orario di apertura della sede, 7 giorni su 7. <strong>Consulenza e prestazioni infermieristiche</strong> (tutte le CdC con ambulatorio AFT): 8–13 nelle sedi Spoke, 8–19 nelle sedi Hub, negli stessi giorni di apertura della CdC. Nei riquadri degli altri distretti, <strong>R</strong> = radiologia attiva ora, <strong>Inf</strong> = infermiere attivo ora.</p>
+    <h5>Distanze</h5>
+    <p>Quando cerchi un indirizzo, accanto al nome di ogni struttura (AFT e Continuità Assistenziale, in tutti i distretti) compare la distanza in linea d'aria dalla posizione del paziente. Le distanze sono indicative: la posizione è stimata a livello di comune (o di quartiere per le vie di Bologna), non del civico. Togliendo la selezione con la × le distanze scompaiono.</p>
     <h5>Infermieri domiciliari (SID)</h5>
     <p>In ogni distretto, il pannello «Infermieri domiciliari (SID)» riporta i cellulari reperibili e le e-mail dei nuclei del Servizio Infermieristico Domiciliare, suddivisi per comuni o quartieri di competenza, con le eventuali estensioni orarie indicate. Salvo diversa indicazione, i recapiti seguono gli orari ordinari del servizio. Fonte: Allegato A1 «Recapiti telefonici e alias dei nuclei dei Servizi Infermieristici Domiciliari», AUSL di Bologna.</p>
     <h5>Festivi</h5>
     <p>Le festività nazionali italiane (compreso il Lunedì dell'Angelo) sono riconosciute automaticamente dalla data selezionata. Per i patroni locali attiva manualmente l'interruttore «Festivo». Nei giorni festivi gli ambulatori AFT Lun–Sab e Lun–Ven sono considerati chiusi; le sedi Lun–Dom e H24 restano attive.</p>
     <h5>Fonti</h5>
-    <p>Orari e sedi: documento di riepilogo «Sedi Ambulatori AFT e Sedi di Continuità Assistenziale» (agosto 2026). Recapiti: <a href="https://www.ausl.bologna.it" rel="noopener">ausl.bologna.it</a> — <a href="https://www.ausl.bologna.it/cit/cagm/il-servizio-di-continuita-assistenziale-la-guardia" rel="noopener">pagina del servizio di Continuità Assistenziale</a>. Strumento di consultazione interna: verificare sempre i casi dubbi sui canali ufficiali.</p>
-    <p class="copyright">© 2026 Dott. Guerino Recinella · Tutti i diritti riservati · Dati aggiornati al 24 agosto 2026 · Strumento di consultazione interna — non sostituisce i canali ufficiali AUSL.</p>
+    <p>Orari e sedi: documento di riepilogo «Sedi Ambulatori AFT e Sedi di Continuità Assistenziale» (agosto 2026). Recapiti: <a href="https://www.ausl.bologna.it" rel="noopener">ausl.bologna.it</a> — <a href="https://www.ausl.bologna.it/cit/cagm/il-servizio-di-continuita-assistenziale-la-guardia" rel="noopener">pagina del servizio di Continuità Assistenziale</a>. Strumento di consultazione interna: verificare sempre i casi dubbi sui canali ufficiali. Aggiornamenti: ambulatorio CA notturno (Lun–Dom 20–8) presso la CdC Crevalcore aggiunto il 1 settembre 2026.</p>
+    <p class="copyright">© 2026 Dott. Guerino Recinella · Tutti i diritti riservati · Dati aggiornati al 1 settembre 2026 · Strumento di consultazione interna — non sostituisce i canali ufficiali AUSL.</p>
   </footer>
 </div>
 
@@ -301,6 +305,7 @@ const SERVIZI = [
   {sede:"loiano",     d:"Savena Idice",        k:"ca",fn:"mista",night:true, fest:true},
   {sede:"persiceto",  d:"Pianura Ovest",       k:"ca",fn:"dom",  night:false,fest:true},
   {sede:"persiceto",  d:"Pianura Ovest",       k:"ca",fn:"mista",night:true, fest:false},
+  {sede:"crevalcore", d:"Pianura Ovest",       k:"ca",fn:"amb",  night:true, fest:false},
   {sede:"porretta",   d:"Appennino",           k:"ca",fn:"mista",night:true, fest:true},
   {sede:"castiglione",d:"Appennino",           k:"ca",fn:"mista",night:true, fest:true},
   {sede:"vergato",    d:"Appennino",           k:"ca",fn:"dom",  night:true, fest:true},
@@ -316,6 +321,76 @@ const SERVIZI = [
   {sede:"castenaso",  d:"Pianura Est",         k:"ca",fn:"dom",  night:false,fest:true},
   {sede:"molinella",  d:"Pianura Est",         k:"ca",fn:"mista",night:true, fest:true}
 ];
+
+/* ---------- Coordinate (indicative) per mappa e distanze ---------- */
+const COORD_SEDI={ // sedi AFT [lat,lng]
+ mengoli:[44.4880,11.3680],pilastro:[44.5085,11.3990],faenza:[44.4721,11.3906],
+ porto:[44.4930,11.3300],navile:[44.5097,11.3392],colombi:[44.4958,11.2867],
+ sanlazzaro:[44.4700,11.4090],persiceto:[44.6390,11.1830],calderara:[44.5640,11.2720],
+ crevalcore:[44.7220,11.1490],castiglione:[44.1440,11.1600],vergato:[44.2830,11.1130],
+ casalecchio:[44.4745,11.2755],bazzano:[44.5060,11.0810],zola:[44.4900,11.2180],
+ sasso:[44.3950,11.2550],budrio:[44.5380,11.5330],castenaso:[44.5100,11.4690],baricella:[44.6470,11.5340],
+ /* sedi solo CA */
+ chersich:[44.5049,11.3765],pianoro:[44.3870,11.3440],loiano:[44.2690,11.3220],
+ porretta:[44.1590,10.9740],lizzano:[44.1610,10.8940],vado:[44.3410,11.2660],
+ msp:[44.4630,11.2100],savigno:[44.3930,11.0810],spc:[44.7010,11.4030],
+ bentivoglio:[44.6350,11.4190],molinella:[44.6180,11.6680]
+};
+const COORD_COMUNI={
+ "Anzola":[44.5470,11.1950],"Argelato":[44.6420,11.3470],"Baricella":[44.6470,11.5340],
+ "Bazzano":[44.5030,11.0880],"Bentivoglio":[44.6350,11.4190],"Bologna":[44.4949,11.3426],
+ "Borgo":[44.5220,11.2830],"Budrio":[44.5380,11.5350],"Calcara":[44.5230,11.1360],
+ "Calderara di Reno":[44.5640,11.2720],"Calderino":[44.4630,11.2100],"Camugnano":[44.1740,11.0900],
+ "Casalecchio":[44.4760,11.2750],"Casalecchio di Reno":[44.4760,11.2750],"Caserme Rosse":[44.5230,11.3480],
+ "Castel Maggiore":[44.5780,11.3630],"Castel San Pietro":[44.3980,11.5890],"Castel d'Aiano":[44.2760,11.0000],
+ "Castel di Casio":[44.1650,11.0350],"Casteldebole":[44.5060,11.2650],"Castello d'Argile":[44.6810,11.2970],
+ "Castello di Serravalle":[44.4550,11.0330],"Castenaso":[44.5110,11.4690],"Castiglione dei Pepoli":[44.1430,11.1580],
+ "Cento":[44.7260,11.2890],"Crespellano":[44.5140,11.1330],"Crevalcore":[44.7230,11.1490],
+ "Dozza":[44.5120,11.3960],"Fossolo":[44.4800,11.3760],"Gaggio Montano":[44.2000,10.9950],
+ "Galliera":[44.7440,11.4400],"Granaglione":[44.1230,10.9830],"Granarolo dell'Emilia":[44.5540,11.4440],
+ "Grizzana Morandi":[44.2570,11.1530],"Imola":[44.3530,11.7140],"Lavino":[44.5100,11.2000],
+ "Lizzano":[44.1610,10.8940],"Loiano":[44.2690,11.3220],"Malalbergo":[44.7180,11.5340],
+ "Marzabotto":[44.3400,11.2060],"Massarenti":[44.4930,11.3660],"Medicina (Bo)":[44.4780,11.6380],
+ "Minerbio":[44.6240,11.4900],"Molinella":[44.6180,11.6680],"Monghidoro":[44.2210,11.3210],
+ "Monte San Pietro":[44.4630,11.2000],"Monterenzio":[44.3270,11.4060],"Monteveglio":[44.4720,11.0960],
+ "Monzuno":[44.2780,11.2170],"Noce":[44.5000,11.2900],"Ortolani":[44.4750,11.3720],
+ "Ozzano dell'Emilia":[44.4440,11.4780],"Pescarola":[44.5230,11.3200],"Pianoro":[44.3870,11.3420],
+ "Pilastro":[44.5090,11.3990],"Porretta":[44.1590,10.9740],"Sala Bolognese":[44.6270,11.2760],
+ "San Benedetto":[44.2170,11.2330],"San Donnino":[44.5190,11.3860],"San Giorgio di Piano":[44.6470,11.3750],
+ "San Giovanni in Persiceto":[44.6390,11.1850],"San Lazzaro":[44.4700,11.4090],"San Lazzaro di Savena":[44.4700,11.4090],
+ "San Pietro in Casale":[44.7010,11.4030],"Sant'Agata Bolognese":[44.6650,11.1340],"Sasso Marconi":[44.3970,11.2530],
+ "Savigno":[44.3930,11.0810],"Vergato":[44.2840,11.1130],"Zola Predosa":[44.4900,11.2180],
+ "eMnoalinella":[44.6180,11.6680],"lBieerantivoglio":[44.6350,11.4190],"lGierraanarolo dell'Emilia":[44.5540,11.4440]
+};
+const COORD_QUART={
+ "BARCA":[44.4900,11.2870],"BOLOGNINA":[44.5140,11.3480],"BORGO PANIGALE":[44.5150,11.2790],
+ "COLLI":[44.4720,11.3300],"CORTICELLA":[44.5390,11.3610],"COSTA-SARAGOZZA":[44.4870,11.3160],
+ "GALVANI":[44.4900,11.3450],"IRNERIO":[44.4980,11.3510],"LAME":[44.5210,11.3230],
+ "MALPIGHI":[44.4940,11.3360],"MARCONI":[44.4980,11.3370],"MAZZINI":[44.4820,11.3700],
+ "MURRI":[44.4790,11.3560],"SAFFI":[44.5010,11.3190],"SAN DONATO":[44.5090,11.3760],
+ "SAN RUFFILLO":[44.4620,11.3660],"SAN VITALE":[44.4950,11.3660],"SANTA VIOLA":[44.5060,11.3080],
+ "San Lazzaro":[44.4550,11.4000]
+};
+function patientCoords(g){
+  if(!g)return null;
+  if(g.t){ // via di Bologna: quartiere (per zone composite usa la prima)
+    const q=g.extra.toUpperCase().split(/[\/·]| \/ /)[0].trim();
+    return COORD_QUART[q]||COORD_QUART[g.extra]||COORD_QUART[Object.keys(COORD_QUART).find(k=>k.toUpperCase()===q)]||null;
+  }
+  return COORD_COMUNI[g.extra]||null;
+}
+function haversine(a,b){
+  const R=6371,r=Math.PI/180;
+  const dLa=(b[0]-a[0])*r,dLo=(b[1]-a[1])*r;
+  const x=Math.sin(dLa/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dLo/2)**2;
+  return 2*R*Math.asin(Math.sqrt(x));
+}
+function fmtKm(k){return k<1?("≈ "+Math.max(100,Math.round(k*100)*10)+" m"):("≈ "+k.toFixed(1).replace(".",",")+" km")}
+let PXY=null;
+function distTag(sede){
+  if(!PXY||!COORD_SEDI[sede])return"";
+  return `<span class="distchip" title="Distanza in linea d'aria, indicativa">${fmtKm(haversine(PXY,COORD_SEDI[sede]))}</span>`;
+}
 
 /* ---------- Servizio Infermieristico Domiciliare (Allegato A1) ---------- */
 const SID={
@@ -508,7 +583,7 @@ function card(s,active){
   }
   return `<div class="card ${cls}">
     <div class="head">${badges(s)}${stato}</div>
-    <div class="nome">${esc(info.nome)}${uff}</div>
+    <div class="nome">${esc(info.nome)}${uff} ${distTag(s.sede)}</div>
     <div class="meta">${esc(info.ind)}${tel}</div>
     <div class="orari">${orariText(s)}</div>
     ${dots}
@@ -517,7 +592,7 @@ function card(s,active){
 function closedRow(s){
   const info=SEDI[s.sede], now=selDate(), n=nextOpening(s);
   const label=s.k==="aft"?`Ambulatorio AFT ${s.hub?"Hub":"Spoke"}`:`CA ${fnLabel(s.fn)}`;
-  return `<div class="closed-row"><span class="n">${esc(info.nome)}</span><span class="badge closed">${label}</span><span class="next">${n?"riapre "+fmtRel(n,now):"—"}</span></div>`;
+  return `<div class="closed-row"><span class="n">${esc(info.nome)}</span>${distTag(s.sede)}<span class="badge closed">${label}</span><span class="next">${n?"riapre "+fmtRel(n,now):"—"}</span></div>`;
 }
 function render(){
   const now=selDate(), wd=now.getDay(), auto=isNatHoliday(now);
@@ -530,6 +605,7 @@ function render(){
   const off=mine.filter(s=>!isActive(s,now));
   const aftA=act.filter(s=>s.k==="aft"), caA=act.filter(s=>s.k==="ca");
 
+  PXY=patientCoords(state.geo);
   let h=`<h2 class="district">${esc(state.distretto)}</h2>
   <p class="district-sub">${act.length? act.length+" serviz"+(act.length===1?"io attivo":"i attivi")+" in questa fascia":"Nessun servizio attivo in questa fascia"}</p>`;
 
@@ -555,7 +631,7 @@ function render(){
       let m="";
       if(radiologiaActive(s,now))m+='<span class="mini" title="Radiologia attiva">R</span>';
       if(infermiereActive(s,now))m+='<span class="mini" title="Infermiere attivo">Inf</span>';
-      h+=`<div class="orow"><span class="n">${esc(info.nome)}</span>${b}${m}<span class="until2">${fmtUntil(s,now)}</span></div>`;
+      h+=`<div class="orow"><span class="n">${esc(info.nome)}</span>${distTag(s.sede)}${b}${m}<span class="until2">${fmtUntil(s,now)}</span></div>`;
     }
     h+=`</div>`;
   }
