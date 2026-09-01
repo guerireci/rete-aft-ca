@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <!--
-  Rete AFT e Continuità Assistenziale — AUSL di Bologna (v3)
+  Rete AFT e Continuità Assistenziale — AUSL di Bologna (v4)
   © 2026 Dott. Guerino Recinella — Tutti i diritti riservati
   Strumento di consultazione interna per la centrale telefonica
   Ultimo aggiornamento dati: 24 agosto 2026
 -->
-<title>Rete AFT e CA Bologna v3</title>
+<title>Rete AFT e CA Bologna v4</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="author" content="Dott. Guerino Recinella">
 <meta name="copyright" content="© 2026 Dott. Guerino Recinella — Tutti i diritti riservati">
@@ -130,6 +130,16 @@ h3.group::after{content:"";flex:1;height:1px;background:var(--border)}
 .dot.on{background:var(--open-soft);color:var(--open);border-color:transparent;font-weight:600}
 .dot-note{font-size:12px;color:var(--warn);margin-top:6px}
 .mini{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.04em;border-radius:5px;padding:1.5px 5px;background:var(--open-soft);color:var(--open);white-space:nowrap}
+.sid{margin-top:14px;border:1px solid var(--border);border-left:4px solid var(--aft);border-radius:12px;padding:4px 14px;background:var(--surface)}
+.sid summary{cursor:pointer;font-size:13.5px;color:var(--ink);padding:9px 0;font-weight:600}
+.sid summary .cnt{color:var(--muted);font-weight:500}
+.sid-row{padding:8px 0;border-top:1px solid var(--border);font-size:13.5px}
+.sid-row .top{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.sid-row .z{font-weight:600}
+.sid-row .tel{margin-left:auto;font-weight:700;color:var(--accent-ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sid-row .sub{color:var(--muted);font-size:12.5px;margin-top:2px}
+.sid-row .sub a{color:var(--accent);text-decoration:none;word-break:break-all}
+@media (max-width:560px){.sid-row .tel{margin-left:0;width:100%}}
 .closed-list{margin-top:10px;border:1px dashed var(--border);border-radius:12px;padding:4px 14px;background:transparent}
 .closed-list summary{cursor:pointer;font-size:13.5px;color:var(--muted);padding:8px 0;font-weight:500}
 .closed-row{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline;padding:7px 0;border-top:1px solid var(--border);font-size:13.5px}
@@ -159,7 +169,7 @@ footer a{color:var(--accent)}
 <body>
 <div class="wrap">
   <header class="top">
-    <p class="eyebrow">Centrale telefonica · AUSL di Bologna · v3</p>
+    <p class="eyebrow">Centrale telefonica · AUSL di Bologna · v4</p>
     <h1>Rete AFT e Continuità Assistenziale</h1>
     <p class="sub">Servizi territoriali attivi per distretto, giorno e fascia oraria. Seleziona il distretto di provenienza del paziente: il quadro si aggiorna in tempo reale.</p>
     <p class="updated">Dati aggiornati al 24 agosto 2026</p>
@@ -202,6 +212,8 @@ footer a{color:var(--accent)}
     <p>Il campo indirizzo riconosce comuni, frazioni e località del territorio AUSL Bologna e le vie del comune di Bologna (pertinenza Roncati = Bologna Ovest, Beroaldo = Bologna Est), e imposta automaticamente il distretto. Alcune località esistono in più comuni: in quel caso compaiono più risultati, da distinguere tramite il comune indicato a destra. I territori di altre aziende sanitarie (es. Medicina, Osteria Grande, Cento) vengono segnalati come fuori territorio. La ricerca avviene interamente nel browser: l'indirizzo digitato non viene inviato né salvato da nessuna parte. Fonte: elenco «Paesi e Vie» v3.52 (Dr. Di Stasi).</p>
     <h5>Servizi nelle CdC</h5>
     <p><strong>Radiologia</strong> (solo sedi ex CAU, con l'orario proprio di ciascuna sede indicato nella scheda): Navile Lun–Sab 8–19 · Budrio e Vergato Lun–Ven 8–19:30, Sab 8–13:30 · Casalecchio Lun–Ven 8–19:30, Sab 8–12:30 · San Lazzaro Lun–Ven 8–18:30, Sab 8–12:30. Domenica e festivi il servizio è chiuso, ma è possibile la presa in carico del paziente e la prenotazione della prestazione per il giorno successivo. <strong>POCT su sangue venoso</strong> (emocromo, biochimica con funzionalità epatica e renale, PCR, elettroliti), test glicemico, tamponi respiratori diagnostici ed <strong>ECG con telerefertazione</strong> (solo sedi ex CAU): disponibili per tutto l'orario di apertura della sede, 7 giorni su 7. <strong>Consulenza e prestazioni infermieristiche</strong> (tutte le CdC con ambulatorio AFT): 8–13 nelle sedi Spoke, 8–19 nelle sedi Hub, negli stessi giorni di apertura della CdC. Nei riquadri degli altri distretti, <strong>R</strong> = radiologia attiva ora, <strong>Inf</strong> = infermiere attivo ora.</p>
+    <h5>Infermieri domiciliari (SID)</h5>
+    <p>In ogni distretto, il pannello «Infermieri domiciliari (SID)» riporta i cellulari reperibili e le e-mail dei nuclei del Servizio Infermieristico Domiciliare, suddivisi per comuni o quartieri di competenza, con le eventuali estensioni orarie indicate. Salvo diversa indicazione, i recapiti seguono gli orari ordinari del servizio. Fonte: Allegato A1 «Recapiti telefonici e alias dei nuclei dei Servizi Infermieristici Domiciliari», AUSL di Bologna.</p>
     <h5>Festivi</h5>
     <p>Le festività nazionali italiane (compreso il Lunedì dell'Angelo) sono riconosciute automaticamente dalla data selezionata. Per i patroni locali attiva manualmente l'interruttore «Festivo». Nei giorni festivi gli ambulatori AFT Lun–Sab e Lun–Ven sono considerati chiusi; le sedi Lun–Dom e H24 restano attive.</p>
     <h5>Fonti</h5>
@@ -304,6 +316,59 @@ const SERVIZI = [
   {sede:"castenaso",  d:"Pianura Est",         k:"ca",fn:"dom",  night:false,fest:true},
   {sede:"molinella",  d:"Pianura Est",         k:"ca",fn:"mista",night:true, fest:true}
 ];
+
+/* ---------- Servizio Infermieristico Domiciliare (Allegato A1) ---------- */
+const SID={
+ "Bologna Est":[
+  {z:"Quartieri S. Vitale – S. Donato",t:["348 4528967"],m:["adi.sandonatosanvitale@ausl.bologna.it"]},
+  {z:"Quartieri Savena – S. Stefano",t:["348 4528969"],m:["adi.savenasantostefano@ausl.bologna.it"]}
+ ],
+ "Bologna Ovest":[
+  {z:"Quartiere Borgo – Reno",t:["348 2552655"],m:["assistenzadomiciliare.borgoreno@ausl.bologna.it"]},
+  {z:"Quartiere Porto – Saragozza",t:["348 6946551"],m:["domiciliare.saragozza@ausl.bologna.it"]},
+  {z:"Quartiere Navile",t:["348 4528976"],m:["sid.navile@ausl.bologna.it"]}
+ ],
+ "Savena Idice":[
+  {z:"Loiano, Monghidoro",t:["335 5742494"],m:["domiciliare.loiano@ausl.bologna.it"]},
+  {z:"Pianoro",t:["348 6555434"],m:["domiciliare.pianoro@ausl.bologna.it"]},
+  {z:"Monterenzio",t:["349 0516203"],m:[]},
+  {z:"Ozzano dell'Emilia",t:["334 6998771"],m:[]},
+  {z:"San Lazzaro di Savena",t:["348 6555451"],n:"attivo anche sabato fino alle 19 e domenica 7–19 (per i comuni di S. Lazzaro, Ozzano e Monterenzio)",m:["domiciliare.sanlazzaro@ausl.bologna.it"]}
+ ],
+ "Pianura Ovest":[
+  {z:"Anzola dell'Emilia, Calderara di Reno, Crevalcore, Sala Bolognese, S. Giovanni in Persiceto, S. Agata Bolognese",t:["348 2836010"],n:"attivo lun–sab 7–19; domenica e festivi 8–20",m:["adi.sangiovanni@ausl.bologna.it","adi.sangiovanni2@ausl.bologna.it","adi.sangiovanni3@ausl.bologna.it"]}
+ ],
+ "Appennino":[
+  {z:"Alto Reno Terme, Castel di Casio, Lizzano in Belvedere, Gaggio Montano, Camugnano",t:["347 4710006"],n:"attivo anche sabato fino alle 19 e domenica 7–19",m:["sid.porretta@ausl.bologna.it"]},
+  {z:"Castiglione dei Pepoli, S. Benedetto Val di Sambro",t:["347 4710075"],m:["sid.castiglione@ausl.bologna.it"]},
+  {z:"Castel d'Aiano, Grizzana Morandi, Marzabotto, Vergato",t:["347 4710002"],m:["sid.vergato@ausl.bologna.it"]},
+  {z:"Monzuno",t:["347 4710068"],m:["sid.vado@ausl.bologna.it"]}
+ ],
+ "Reno Lavino Samoggia":[
+  {z:"Casalecchio di Reno",t:["335 7239484","051 6756672"],n:"segreteria sempre attiva",m:["domiciliari.casalecchio@ausl.bologna.it"]},
+  {z:"Monte San Pietro",t:["335 213829"],n:"lun–dom",m:["domiciliari.vallelavino@ausl.bologna.it"]},
+  {z:"Zola Predosa",t:["051 6188917"],n:"con segreteria",m:["domiciliari.vallelavino@ausl.bologna.it"]},
+  {z:"Sasso Marconi",t:["348 6555493","051 4583216"],n:"segreteria sempre attiva",m:["domiciliari.sasso@ausl.bologna.it"]},
+  {z:"Valsamoggia",t:["051 838730","335 7274156","348 6555796"],n:"051 con segreteria · 335 lun–sab · 348 sabato pomeriggio e festivi",m:["domiciliari.vallesamoggia@ausl.bologna.it"]}
+ ],
+ "Pianura Est":[
+  {z:"Argelato, Castello d'Argile, Galliera, Pieve di Cento, S. Pietro in Casale",t:["348 2428117"],m:["adi.sanpietroincasale@ausl.bologna.it"]},
+  {z:"Baricella, Malalbergo, Minerbio",t:["348 2429250"],m:["adi.baricella@ausl.bologna.it"]},
+  {z:"Bentivoglio, Castel Maggiore, Granarolo dell'Emilia, S. Giorgio di Piano",t:["348 2428535"],n:"attivo anche sabato fino alle 19 e domenica 8–19 solo per il comune di Castel Maggiore",m:["adi.castelmaggiore@ausl.bologna.it"]},
+  {z:"Budrio, Castenaso",t:["348 2401070"],m:["adi.budrio@ausl.bologna.it"]},
+  {z:"Molinella",t:["348 2400377"],m:["adi.molinella@ausl.bologna.it"]}
+ ]
+};
+function sidPanel(distretto){
+  const rows=SID[distretto]||[];
+  if(!rows.length)return"";
+  const body=rows.map(r=>{
+    const tel=r.t.map(x=>`<span class="tel">${esc(x)}</span>`).join("");
+    const sub=[r.n?esc(r.n):null, r.m.length?r.m.map(m=>`<a href="mailto:${esc(m)}">${esc(m)}</a>`).join(" · "):null].filter(Boolean).join(" · ");
+    return `<div class="sid-row"><div class="top"><span class="z">${esc(r.z)}</span>${tel}</div>${sub?`<div class="sub">${sub}</div>`:""}</div>`;
+  }).join("");
+  return `<details class="sid"><summary>Infermieri domiciliari (SID) — recapiti per zona <span class="cnt">· ${rows.length} nucle${rows.length===1?"o":"i"}</span></summary>${body}</details>`;
+}
 
 /* ---------- Festività nazionali ---------- */
 function easter(y){const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1;return new Date(y,mo-1,da);}
@@ -476,6 +541,7 @@ function render(){
   if(off.length){
     h+=`<details class="closed-list"><summary>Non attivi in questa fascia (${off.length}) — prossime riaperture</summary>${off.map(closedRow).join("")}</details>`;
   }
+  h+=sidPanel(state.distretto);
 
   h+=`<div class="others"><h2>Negli altri distretti</h2><p class="hint">Servizi attivi adesso, se serve indirizzare il paziente fuori distretto.</p><div class="ogrid">`;
   for(const d of DISTRETTI){
