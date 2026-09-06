@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <!--
-  Rete AFT e Continuità Assistenziale — AUSL di Bologna (v5)
+  Rete AFT e Continuità Assistenziale — AUSL di Bologna (v6)
   © 2026 Dott. Guerino Recinella — Tutti i diritti riservati
   Strumento di consultazione interna per la centrale operativa
-  Ultimo aggiornamento dati: 1 settembre 2026
+  Ultimo aggiornamento dati: 6 settembre 2026
 -->
-<title>Rete AFT e CA Bologna v5</title>
+<title>Rete AFT e CA Bologna v6</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="author" content="Dott. Guerino Recinella">
 <meta name="copyright" content="© 2026 Dott. Guerino Recinella — Tutti i diritti riservati">
@@ -171,10 +171,10 @@ footer a{color:var(--accent)}
 <body>
 <div class="wrap">
   <header class="top">
-    <p class="eyebrow">Centrale operativa · AUSL di Bologna · v5</p>
+    <p class="eyebrow">Centrale operativa · AUSL di Bologna · v6</p>
     <h1>Rete AFT e Continuità Assistenziale</h1>
     <p class="sub">Servizi territoriali attivi per distretto, giorno e fascia oraria. Seleziona il distretto di provenienza del paziente: il quadro si aggiorna in tempo reale.</p>
-    <p class="updated">Dati aggiornati al 1 settembre 2026</p>
+    <p class="updated">Dati aggiornati al 6 settembre 2026</p>
     <noscript><div class="banner"><span>⚠︎</span><span><strong>Questa pagina è interattiva e qui non può funzionare.</strong> La stai vedendo in un'anteprima (da chat, e-mail o app File), che disattiva la parte interattiva. Aprila con un browser vero — Safari o Chrome — oppure usa il link online.</span></div></noscript>
     <div class="banner" id="verifyBanner"><span>⚠︎</span><span><strong>Recapiti in attesa di verifica.</strong> Indirizzi e telefoni provengono dal sito AUSL di Bologna (agosto 2026) e non sono ancora stati validati dal responsabile. Gli orari di attivazione derivano dal documento di riepilogo interno.</span></div>
   </header>
@@ -221,8 +221,8 @@ footer a{color:var(--accent)}
     <h5>Festivi</h5>
     <p>Le festività nazionali italiane (compreso il Lunedì dell'Angelo) sono riconosciute automaticamente dalla data selezionata. Per i patroni locali attiva manualmente l'interruttore «Festivo». Nei giorni festivi gli ambulatori AFT Lun–Sab e Lun–Ven sono considerati chiusi; le sedi Lun–Dom e H24 restano attive.</p>
     <h5>Fonti</h5>
-    <p>Orari e sedi: documento di riepilogo «Sedi Ambulatori AFT e Sedi di Continuità Assistenziale» (agosto 2026). Recapiti: <a href="https://www.ausl.bologna.it" rel="noopener">ausl.bologna.it</a> — <a href="https://www.ausl.bologna.it/cit/cagm/il-servizio-di-continuita-assistenziale-la-guardia" rel="noopener">pagina del servizio di Continuità Assistenziale</a>. Strumento di consultazione interna: verificare sempre i casi dubbi sui canali ufficiali. Aggiornamenti: ambulatorio CA notturno (Lun–Dom 20–8) presso la CdC Crevalcore aggiunto il 1 settembre 2026.</p>
-    <p class="copyright">© 2026 Dott. Guerino Recinella · Tutti i diritti riservati · Dati aggiornati al 1 settembre 2026 · Strumento di consultazione interna — non sostituisce i canali ufficiali AUSL.</p>
+    <p>Orari e sedi: documento di riepilogo «Sedi Ambulatori AFT e Sedi di Continuità Assistenziale» (agosto 2026). Recapiti: <a href="https://www.ausl.bologna.it" rel="noopener">ausl.bologna.it</a> — <a href="https://www.ausl.bologna.it/cit/cagm/il-servizio-di-continuita-assistenziale-la-guardia" rel="noopener">pagina del servizio di Continuità Assistenziale</a>. Strumento di consultazione interna: verificare sempre i casi dubbi sui canali ufficiali. Aggiornamenti: ambulatorio CA notturno (Lun–Dom 20–8) presso la CdC Crevalcore aggiunto il 1 settembre 2026; orari della sede CA Chersich (Beroaldo) aggiornati il 6 settembre 2026 (mista sab, dom e festivi 8–20 e tutte le sere 20–23:30; domiciliare tutte le notti 23:30–8).</p>
+    <p class="copyright">© 2026 Dott. Guerino Recinella · Tutti i diritti riservati · Dati aggiornati al 6 settembre 2026 · Strumento di consultazione interna — non sostituisce i canali ufficiali AUSL.</p>
   </footer>
 </div>
 
@@ -294,7 +294,8 @@ const SERVIZI = [
   {sede:"castenaso",  d:"Pianura Est",         k:"aft",hub:false,cau:false,days:LS},
   {sede:"baricella",  d:"Pianura Est",         k:"aft",hub:false,cau:false,days:LS},
   /* --- Continuità Assistenziale --- */
-  {sede:"chersich",   d:"Bologna Est",         k:"ca",fn:"dom",  night:true, fest:true},
+  {sede:"chersich",   d:"Bologna Est",         k:"ca",fn:"mista",win:[{days:[6,0],fest:true,f:480,t:1200},{days:[0,1,2,3,4,5,6],f:1200,t:1410}],ot:"Sab, dom e festivi 8–20 · tutte le sere 20–23:30"},
+  {sede:"chersich",   d:"Bologna Est",         k:"ca",fn:"dom",  win:[{days:[0,1,2,3,4,5,6],f:1410,t:1440},{days:[0,1,2,3,4,5,6],f:0,t:480}],ot:"Tutte le notti 23:30–8"},
   {sede:"faenza",     d:"Bologna Est",         k:"ca",fn:"amb",  night:true, fest:true},
   {sede:"navile",     d:"Bologna Ovest",       k:"ca",fn:"dom",  night:true, fest:true},
   {sede:"navile",     d:"Bologna Ovest",       k:"ca",fn:"amb",  night:true, fest:false},
@@ -475,15 +476,16 @@ function isActive(s,d){
     if(fest && !s.days.includes(0)) return false;
     return t>=480 && t<1200;
   }
+  if(s.win) return s.win.some(w=>((w.days&&w.days.includes(wd))||(w.fest&&fest)) && t>=w.f && t<w.t);
   const day=(wd===0||wd===6||fest) && t>=480 && t<1200;
   const nig=(t<480||t>=1200);
   return (s.night&&nig)||(s.fest&&day);
 }
 function selDate(){const [y,m,g]=state.date.split("-").map(Number);const [h,mi]=state.time.split(":").map(Number);return new Date(y,m-1,g,h,mi);}
-function nextHour(d){const n=new Date(d);n.setMinutes(0,0,0);n.setHours(n.getHours()+1);return n;}
+function nextHalf(d){const n=new Date(d);n.setSeconds(0,0);n.setMinutes(n.getMinutes()<30?30:60,0,0);return n;}
 function activeUntil(s){ // Date di fine, oppure null = sempre attivo (H24)
-  let d=nextHour(selDate());
-  for(let i=0;i<24*8;i++){ if(!isActive(s,d)) return d; d=new Date(d.getTime()+3600000); }
+  let d=nextHalf(selDate());
+  for(let i=0;i<48*8;i++){ if(!isActive(s,d)) return d; d=new Date(d.getTime()+1800000); }
   return null;
 }
 /* Servizi aggiuntivi nelle CdC (nota servizi agosto 2026) */
@@ -516,8 +518,8 @@ function infermiereActive(s,d){ // tutte le CdC AFT: 8-13 Spoke, 8-19 Hub, stess
   return t>=480&&t<(s.hub?1140:780);
 }
 function nextOpening(s){ // prossima Date di apertura, oppure null
-  let d=nextHour(selDate());
-  for(let i=0;i<24*8;i++){ if(isActive(s,d)) return d; d=new Date(d.getTime()+3600000); }
+  let d=nextHalf(selDate());
+  for(let i=0;i<48*8;i++){ if(isActive(s,d)) return d; d=new Date(d.getTime()+1800000); }
   return null;
 }
 function fmtRel(d,now){
@@ -532,6 +534,7 @@ function fmtRel(d,now){
 
 /* ---------- Testi ---------- */
 function orariText(s){
+  if(s.ot)return s.ot;
   if(s.k==="aft"){
     if(s.h24) return "Aperto 24 ore, Lun–Dom";
     const dd=s.days.includes(0)?"Lun–Dom":(s.days.includes(6)?"Lun–Sab":"Lun–Ven");
