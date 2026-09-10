@@ -6,7 +6,7 @@
   Rete AFT e Continuità Assistenziale — AUSL di Bologna (v7)
   © 2026 Dott. Guerino Recinella — Tutti i diritti riservati
   Strumento di consultazione interna per la centrale operativa
-  Ultimo aggiornamento dati: 7 settembre 2026
+  Ultimo aggiornamento dati: 10 settembre 2026
 -->
 <title>Rete AFT e CA Bologna v7</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -174,7 +174,7 @@ footer a{color:var(--accent)}
     <p class="eyebrow">Centrale operativa · AUSL di Bologna · v7</p>
     <h1>Rete AFT e Continuità Assistenziale</h1>
     <p class="sub">Servizi territoriali attivi per distretto, giorno e fascia oraria. Seleziona il distretto di provenienza del paziente: il quadro si aggiorna in tempo reale.</p>
-    <p class="updated">Dati aggiornati al 7 settembre 2026</p>
+    <p class="updated">Dati aggiornati al 10 settembre 2026</p>
     <noscript><div class="banner"><span>⚠︎</span><span><strong>Questa pagina è interattiva e qui non può funzionare.</strong> La stai vedendo in un'anteprima (da chat, e-mail o app File), che disattiva la parte interattiva. Aprila con un browser vero — Safari o Chrome — oppure usa il link online.</span></div></noscript>
     <div class="banner" id="verifyBanner"><span>⚠︎</span><span><strong>Recapiti in attesa di verifica.</strong> Indirizzi e telefoni provengono dal sito AUSL di Bologna (agosto 2026) e non sono ancora stati validati dal responsabile. Gli orari di attivazione derivano dal documento di riepilogo interno.</span></div>
   </header>
@@ -221,8 +221,8 @@ footer a{color:var(--accent)}
     <h5>Festivi</h5>
     <p>Le festività nazionali italiane (compreso il Lunedì dell'Angelo) sono riconosciute automaticamente dalla data selezionata. Per i patroni locali attiva manualmente l'interruttore «Festivo». Nei giorni festivi gli ambulatori AFT Lun–Sab e Lun–Ven sono considerati chiusi; le sedi Lun–Dom e H24 restano attive.</p>
     <h5>Fonti</h5>
-    <p>Orari e sedi: documento di riepilogo «Sedi Ambulatori AFT e Sedi di Continuità Assistenziale» (agosto 2026). Recapiti: <a href="https://www.ausl.bologna.it" rel="noopener">ausl.bologna.it</a> — <a href="https://www.ausl.bologna.it/cit/cagm/il-servizio-di-continuita-assistenziale-la-guardia" rel="noopener">pagina del servizio di Continuità Assistenziale</a>. Strumento di consultazione interna: verificare sempre i casi dubbi sui canali ufficiali. Aggiornamenti: ambulatorio CA notturno (Lun–Dom 20–8) presso la CdC Crevalcore aggiunto il 1 settembre 2026; orari della sede CA Chersich (Beroaldo) aggiornati il 6 settembre 2026 (mista sab, dom e festivi 8–20 e tutte le sere 20–23:30; domiciliare tutte le notti 23:30–8); sede CA ambulatoriale di Via Montebello 6 (Bologna Ovest) aggiunta il 7 settembre 2026: sabato, prefestivi e festivi 8–20 e tutte le sere 20–24.</p>
-    <p class="copyright">© 2026 Dott. Guerino Recinella · Tutti i diritti riservati · Dati aggiornati al 7 settembre 2026 · Strumento di consultazione interna — non sostituisce i canali ufficiali AUSL.</p>
+    <p>Orari e sedi: documento di riepilogo «Sedi Ambulatori AFT e Sedi di Continuità Assistenziale» (agosto 2026). Recapiti: <a href="https://www.ausl.bologna.it" rel="noopener">ausl.bologna.it</a> — <a href="https://www.ausl.bologna.it/cit/cagm/il-servizio-di-continuita-assistenziale-la-guardia" rel="noopener">pagina del servizio di Continuità Assistenziale</a>. Strumento di consultazione interna: verificare sempre i casi dubbi sui canali ufficiali. Aggiornamenti: ambulatorio CA notturno (Lun–Dom 20–8) presso la CdC Crevalcore aggiunto il 1 settembre 2026; orari della sede CA Chersich (Beroaldo) aggiornati il 6 settembre 2026 (mista sab, dom e festivi 8–20 e tutte le sere 20–23:30; domiciliare tutte le notti 23:30–8); sede CA ambulatoriale di Via Montebello 6 (Bologna Ovest) aggiunta il 7 settembre 2026: sabato, prefestivi e festivi 8–20 e tutte le sere 20–24; sedi CA di Castenaso e Molinella aggiornate il 10 settembre 2026 (miste fino alle 23:30, poi solo domiciliari fino alle 8).</p>
+    <p class="copyright">© 2026 Dott. Guerino Recinella · Tutti i diritti riservati · Dati aggiornati al 10 settembre 2026 · Strumento di consultazione interna — non sostituisce i canali ufficiali AUSL.</p>
   </footer>
 </div>
 
@@ -320,9 +320,10 @@ const SERVIZI = [
   {sede:"savigno",    d:"Reno Lavino Samoggia",k:"ca",fn:"mista",night:true, fest:true},
   {sede:"spc",        d:"Pianura Est",         k:"ca",fn:"mista",night:true, fest:true},
   {sede:"bentivoglio",d:"Pianura Est",         k:"ca",fn:"mista",night:true, fest:true},
-  {sede:"castenaso",  d:"Pianura Est",         k:"ca",fn:"mista",night:true, fest:false},
-  {sede:"castenaso",  d:"Pianura Est",         k:"ca",fn:"dom",  night:false,fest:true},
-  {sede:"molinella",  d:"Pianura Est",         k:"ca",fn:"mista",night:true, fest:true}
+  {sede:"castenaso",  d:"Pianura Est",         k:"ca",fn:"mista",win:[{days:[0,1,2,3,4,5,6],f:1200,t:1410}],ot:"Tutte le sere 20–23:30"},
+  {sede:"castenaso",  d:"Pianura Est",         k:"ca",fn:"dom",  win:[{days:[0,1,2,3,4,5,6],f:1410,t:1440},{days:[0,1,2,3,4,5,6],f:0,t:480},{days:[6,0],fest:true,f:480,t:1200}],ot:"Tutte le notti 23:30–8 · sab, dom e festivi 8–20"},
+  {sede:"molinella",  d:"Pianura Est",         k:"ca",fn:"mista",win:[{days:[6,0],fest:true,f:480,t:1200},{days:[0,1,2,3,4,5,6],f:1200,t:1410}],ot:"Sab, dom e festivi 8–20 · tutte le sere 20–23:30"},
+  {sede:"molinella",  d:"Pianura Est",         k:"ca",fn:"dom",  win:[{days:[0,1,2,3,4,5,6],f:1410,t:1440},{days:[0,1,2,3,4,5,6],f:0,t:480}],ot:"Tutte le notti 23:30–8"}
 ];
 
 /* ---------- Coordinate (indicative) per mappa e distanze ---------- */
