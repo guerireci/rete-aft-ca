@@ -191,7 +191,7 @@ footer a{color:var(--accent)}
     <p class="eyebrow">Centrale operativa · AUSL di Bologna · v10</p>
     <h1>Rete AFT e Continuità Assistenziale</h1>
     <p class="sub">Servizi territoriali attivi per distretto, giorno e fascia oraria. Seleziona il distretto di provenienza del paziente: il quadro si aggiorna in tempo reale.</p>
-    <p class="updated">Dati aggiornati al 11 settembre 2026</p>
+    <p class="updated">Dati aggiornati al 12 settembre 2026</p>
     <noscript><div class="banner"><span>⚠︎</span><span><strong>Questa pagina è interattiva e qui non può funzionare.</strong> La stai vedendo in un'anteprima (da chat, e-mail o app File), che disattiva la parte interattiva. Aprila con un browser vero — Safari o Chrome — oppure usa il link online.</span></div></noscript>
     <div class="banner" id="verifyBanner"><span>⚠︎</span><span><strong>Recapiti in attesa di verifica.</strong> Indirizzi e telefoni provengono dal sito AUSL di Bologna (agosto 2026) e non sono ancora stati validati dal responsabile. Gli orari di attivazione derivano dal documento di riepilogo interno.</span></div>
   </header>
@@ -249,8 +249,8 @@ footer a{color:var(--accent)}
     <h5>Festivi</h5>
     <p>Le festività nazionali italiane (compreso il Lunedì dell'Angelo) sono riconosciute automaticamente dalla data selezionata. Per i patroni locali attiva manualmente l'interruttore «Festivo». Nei giorni festivi gli ambulatori AFT Lun–Sab e Lun–Ven sono considerati chiusi; le sedi Lun–Dom e H24 restano attive.</p>
     <h5>Fonti</h5>
-    <p>Orari e sedi: documento di riepilogo «Sedi Ambulatori AFT e Sedi di Continuità Assistenziale» (agosto 2026). Recapiti: <a href="https://www.ausl.bologna.it" rel="noopener">ausl.bologna.it</a> — <a href="https://www.ausl.bologna.it/cit/cagm/il-servizio-di-continuita-assistenziale-la-guardia" rel="noopener">pagina del servizio di Continuità Assistenziale</a>. Strumento di consultazione interna: verificare sempre i casi dubbi sui canali ufficiali. Aggiornamenti: ambulatorio CA notturno (Lun–Dom 20–8) presso la CdC Crevalcore aggiunto il 1 settembre 2026; orari della sede CA Chersich (Beroaldo) aggiornati il 6 settembre 2026 (mista sab, dom e festivi 8–20 e tutte le sere 20–23:30; domiciliare tutte le notti 23:30–8); sede CA ambulatoriale di Via Montebello 6 (Bologna Ovest) aggiunta il 7 settembre 2026: sabato, prefestivi e festivi 8–20 e tutte le sere 20–24; sedi CA di Castenaso e Molinella aggiornate il 10 settembre 2026 (miste fino alle 23:30, poi solo domiciliari fino alle 8); sede CA di Crevalcore aggiornata il 10 settembre 2026 (ambulatoriale fino alle 23:30, poi solo domiciliare fino alle 8); sedi CA di Loiano, Porretta, Castiglione, Vado, Monte San Pietro e Savigno aggiornate l'11 settembre 2026 (miste fino alle 23:30, poi solo domiciliari fino alle 8; Lizzano invariata, già solo domiciliare).</p>
-    <p class="copyright">© 2026 Dott. Guerino Recinella · Tutti i diritti riservati · Dati aggiornati al 11 settembre 2026 · Strumento di consultazione interna — non sostituisce i canali ufficiali AUSL.</p>
+    <p>Orari e sedi: documento di riepilogo «Sedi Ambulatori AFT e Sedi di Continuità Assistenziale» (agosto 2026). Recapiti: <a href="https://www.ausl.bologna.it" rel="noopener">ausl.bologna.it</a> — <a href="https://www.ausl.bologna.it/cit/cagm/il-servizio-di-continuita-assistenziale-la-guardia" rel="noopener">pagina del servizio di Continuità Assistenziale</a>. Strumento di consultazione interna: verificare sempre i casi dubbi sui canali ufficiali. Aggiornamenti: ambulatorio CA notturno (Lun–Dom 20–8) presso la CdC Crevalcore aggiunto il 1 settembre 2026; orari della sede CA Chersich (Beroaldo) aggiornati il 6 settembre 2026 (mista sab, dom e festivi 8–20 e tutte le sere 20–23:30; domiciliare tutte le notti 23:30–8); sede CA ambulatoriale di Via Montebello 6 (Bologna Ovest) aggiunta il 7 settembre 2026: sabato, prefestivi e festivi 8–20 e tutte le sere 20–24; sedi CA di Castenaso e Molinella aggiornate il 10 settembre 2026 (miste fino alle 23:30, poi solo domiciliari fino alle 8); sede CA di Crevalcore aggiornata il 10 settembre 2026 (ambulatoriale fino alle 23:30, poi solo domiciliare fino alle 8); sedi CA di Loiano, Porretta, Castiglione, Vado, Monte San Pietro e Savigno aggiornate l'11 settembre 2026 (miste fino alle 23:30, poi solo domiciliari fino alle 8; Lizzano invariata, già solo domiciliare); ambulatorio CA diurno presso la CdC Porto-Saragozza rimosso il 12 settembre 2026 (nei festivi e prefestivi diurni resta attivo il solo ambulatorio AFT).</p>
+    <p class="copyright">© 2026 Dott. Guerino Recinella · Tutti i diritti riservati · Dati aggiornati al 12 settembre 2026 · Strumento di consultazione interna — non sostituisce i canali ufficiali AUSL.</p>
   </footer>
 </div>
 
@@ -328,7 +328,6 @@ const SERVIZI = [
   {sede:"faenza",     d:"Bologna Est",         k:"ca",fn:"amb",  night:true, fest:true},
   {sede:"navile",     d:"Bologna Ovest",       k:"ca",fn:"dom",  night:true, fest:true},
   {sede:"navile",     d:"Bologna Ovest",       k:"ca",fn:"amb",  night:true, fest:false},
-  {sede:"porto",      d:"Bologna Ovest",       k:"ca",fn:"amb",  night:false,fest:true},
   {sede:"montebello", d:"Bologna Ovest",       k:"ca",fn:"amb",  win:[{days:[6,0],fest:true,prefest:true,f:480,t:1200},{days:[0,1,2,3,4,5,6],f:1200,t:1440}],ot:"Sab, prefestivi e festivi 8–20 · tutte le sere 20–24"},
   {sede:"sanlazzaro", d:"Savena Idice",        k:"ca",fn:"mista",night:true, fest:false},
   {sede:"sanlazzaro", d:"Savena Idice",        k:"ca",fn:"dom",  night:false,fest:true},
